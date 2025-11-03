@@ -1,0 +1,2991 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Merged CVD Report — Responsive</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Merriweather:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* -----------------------------
+         Variables & Global Reset
+         ----------------------------- */
+      /* :root {
+        --bg: #616261; 
+        --panel-bg: rgba(255, 255, 255, 0.03);
+        --panel-strong-bg: rgba(0, 0, 0, 0.25);
+        --accent: #f9c511;
+        --text: #ffffff;
+        --muted: #cfcfcf; */
+
+      /* fluid type scale */
+      /* --fs-hero: clamp(36px, 6.8vw, 92px);
+        --fs-h1: clamp(28px, 4.6vw, 82px);
+        --fs-h2: clamp(20px, 3.6vw, 52px);
+        --fs-body: clamp(15px, 2vw, 22px);
+        --max-content-width: 1400px;
+      } */
+
+      :root {
+        --bg: #616261; /* NEW dark background color */
+        --accent: #f9c511;
+        --text: #ffffff;
+        --muted: #cfcfcf;
+        --fs-hero: clamp(36px, 6.8vw, 92px);
+        --fs-body: clamp(15px, 2vw, 22px);
+        --max-content-width: 1400px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica",
+          Arial, sans-serif;
+        font-family: Georgia, Times, "Times New Roman", serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.45;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      /* -----------------------------
+         Utility helpers
+         ----------------------------- */
+      .wrap {
+        width: min(95%, var(--max-content-width));
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .overlay-contrast {
+        background: #616261;
+      }
+
+      /* -----------------------------
+         Hero / Intro ("Gone Too Soon")
+         Keep desktop visual intact; mobile contrast enhancements below
+         ----------------------------- */
+      .green {
+        background-color: var(--bg);
+        width: 100%;
+        height: 100vh;
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+        text-align: center;
+      }
+
+      .green h1 {
+        font-family: "Merriweather", serif;
+        font-size: var(--fs-hero);
+        line-height: 1;
+        margin-bottom: 8px;
+        text-shadow: 2px 6px 10px rgba(0, 0, 0, 0.45);
+        font-weight: 700;
+      }
+
+      .green h5 {
+        font-size: clamp(18px, 2.8vw, 34px);
+        margin-top: 6px;
+        font-weight: 400;
+        opacity: 0.98;
+      }
+
+      /* -----------------------------
+         STATEMENT SEQUENCE (pinned)
+         ----------------------------- */
+      .stat-sequence {
+        background-color: var(--bg);
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .g-aiAbs .g-pstyle4 {
+        text-align: right;
+      }
+
+      .g-aiAbs .g-pstyle5 {
+        font-size: 30px;
+        font-weight: 900;
+
+        text-align: right;
+      }
+
+      .stat-pin-container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        padding: 0 10vw;
+        text-align: center;
+      }
+
+      .stat-text {
+        color: var(--text);
+        position: absolute;
+        width: 80%;
+        max-width: 900px;
+        font-size: clamp(20px, 4vw, 52px);
+        line-height: 1.25;
+        font-weight: 300;
+        opacity: 0;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+      }
+
+      /* -----------------------------
+         Canvas sequence section
+         ----------------------------- */
+      /* -----------------------------
+   Canvas sequence section (fixed layout: image left + text right)
+   ----------------------------- */
+      .pin-sequence {
+        height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg);
+        overflow: hidden;
+      }
+
+      .scroll-container {
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        flex-direction: row; /* side-by-side layout */
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        gap: 3vw;
+        padding: 0 4vw;
+        box-sizing: border-box;
+      }
+
+      canvas {
+        display: block;
+        width: 48vw;
+        max-width: 48vw;
+        height: auto;
+        max-height: 90vh;
+        object-fit: contain;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+        border-radius: 0; /* no shadow or round edges */
+        box-shadow: none; /* remove drop shadow */
+        margin: 0;
+      }
+
+      .scroll-text {
+        flex: 1;
+        max-width: 480px;
+        text-align: left;
+        font-size: var(--fs-body);
+        color: var(--text);
+        line-height: 1.45;
+        font-weight: 400;
+        padding: 0 10px;
+      }
+      .scroll-text .data-year {
+        display: block;
+        font-family: "Merriweather", serif;
+        font-size: clamp(20px, 3.4vw, 28px);
+        color: var(--accent);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .scroll-text .data-count {
+        display: block;
+        font-size: clamp(16px, 2.2vw, 20px);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 1024px) {
+        .scroll-container {
+          flex-direction: column; /* stack for tablets */
+          text-align: center;
+          gap: 1.6rem;
+        }
+
+        canvas {
+          width: 80vw;
+          max-width: 80vw;
+          margin-bottom: 1rem;
+        }
+
+        .scroll-text {
+          max-width: 90%;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 600px) {
+        canvas {
+          width: 92vw;
+          max-width: 92vw;
+          height: auto;
+        }
+      }
+
+      /* -----------------------------
+         CVD Section & AI2HTML elements
+         ----------------------------- */
+      .cvd-section {
+        width: 100%;
+        padding: 40px 20px;
+        box-sizing: border-box;
+      }
+
+      .content {
+        max-width: 580px;
+        margin: 0 auto;
+      }
+
+      .intro {
+        font-family: "Roboto", sans-serif;
+        font-size: clamp(15px, 1.9vw, 22px);
+        line-height: 1.5;
+        font-weight: 400;
+        margin-bottom: 28px;
+        color: var(--text);
+      }
+
+      .cvd-section h2 {
+        font-family: "Merriweather", serif;
+        font-size: clamp(22px, 3vw, 32px);
+        line-height: 1.15;
+        font-weight: 700;
+        margin-bottom: 18px;
+        color: var(--text);
+      }
+
+      .disease-info p {
+        font-family: "Roboto", sans-serif;
+        font-size: clamp(15px, 1.8vw, 22px);
+        line-height: 1.4;
+        margin-bottom: 28px;
+        color: var(--text);
+      }
+
+      .disease-info strong {
+        font-family: "Merriweather", serif;
+        font-weight: 700;
+        font-size: clamp(16px, 2.1vw, 24px);
+        line-height: 1.3;
+        color: var(--text);
+      }
+
+      .heart-section {
+        margin-top: 120px;
+      }
+
+      .heart-section h3 {
+        font-family: "Merriweather", serif;
+        font-size: clamp(20px, 3vw, 32px);
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text);
+      }
+
+      .heart-section p {
+        font-family: "Roboto", sans-serif;
+        font-size: clamp(15px, 1.9vw, 22px);
+        line-height: 1.5;
+        font-weight: 400;
+        color: var(--text);
+      }
+
+      /* AI2HTML wrappers */
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .ai2html {
+        width: 100%;
+        max-width: 680px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .ai2html .g-artboard {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .ai2html .g-artboard > div:first-child {
+        width: 100%;
+        height: 0;
+      }
+
+      .ai2html .g-aiImg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .ai2html p {
+        margin: 0;
+        color: var(--text);
+        font-size: clamp(14px, 1.8vw, 18px);
+        line-height: 1.3;
+      }
+
+      .g-aiAbs .g-pstyle0 {
+        font-size: 30px;
+        font-weight: 900;
+      }
+
+      .g-aiAbs {
+        position: absolute;
+        color: var(--text);
+      }
+
+      /* -----------------------------
+         Heart attack page
+         ----------------------------- */
+      .heart-attack-page {
+        width: 100%;
+        padding: 50px 0;
+        box-sizing: border-box;
+      }
+
+      .heart-attack-container {
+        max-width: var(--max-content-width);
+        width: 92%;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .heart-attack-title {
+        margin-bottom: 24px;
+        color: var(--text);
+      }
+
+      .heart-attack-main-title {
+        font-family: "Merriweather", serif;
+        font-weight: 700;
+        font-size: clamp(22px, 3.2vw, 34px);
+        margin-bottom: 0;
+      }
+
+      .heart-attack-content {
+        display: flex;
+        gap: 40px;
+        align-items: flex-start;
+      }
+
+      .heart-attack-image-area {
+        flex: 3;
+        min-width: 60%;
+        max-width: 900px;
+      }
+
+      #g-HeartImage-box {
+        width: 100%;
+        /* 1. Hide the original large diagram on mobile/tablet */
+      }
+      .mobile-heart-diagrams {
+        /* 2. Show the new stacked diagrams only on mobile/tablet */
+        display: none;
+        flex-direction: column;
+        gap: 30px; /* spacing between the two diagrams */
+        width: 100%;
+        max-width: 800px; /* limit max width for the stacked diagrams */
+        margin: 0 auto;
+      }
+
+      #g-HeartImage-box .g-artboard {
+        max-width: 100%;
+      }
+
+      .heart-attack-text {
+        flex: 1;
+        min-width: 30%;
+        /* color: var(--text); */
+
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-size: clamp(14px, 1.8vw, 16px);
+        /* font-size: clamp(15px, 1.8vw, 22px); */
+        line-height: 1.5;
+        padding-top: 6px;
+      }
+
+      .heart-attack-text strong {
+        font-weight: 700;
+      }
+
+      /* -----------------------------
+         Symptoms Page (grid -> stacked on small)
+         ----------------------------- */
+      .symptoms-page {
+        width: 100%;
+        min-height: 100vh;
+        padding: 50px 0;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 60px;
+      }
+
+      .symptoms-container {
+        display: grid;
+        grid-template-columns: 25% 75%;
+        width: 90%;
+        max-width: var(--max-content-width);
+        margin: 0 auto;
+      }
+
+      .symptoms-col-1 {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        color: var(--text);
+      }
+
+      .symptoms-title {
+        font-family: "Merriweather", serif;
+        font-size: clamp(22px, 3.4vw, 32px);
+        font-weight: 700;
+        line-height: 1.05;
+        margin-bottom: 10px;
+      }
+
+      .symptom-text {
+        font-size: clamp(15px, 1.9vw, 16px);
+        line-height: 1.5;
+      }
+
+      .human-image-container {
+        position: relative;
+        width: 100%;
+        min-height: 300px;
+        margin-bottom: 5px;
+      }
+
+      .human-image-container img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100%;
+        max-height: 420px;
+        object-fit: contain;
+        width: auto;
+      }
+
+      .symptoms-col-2-3 {
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #g-symptoms-box,
+      #g-symptoms {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      #g-symptoms-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      #g-symptoms p {
+        font-weight: 500;
+        line-height: 1.4;
+        font-size: clamp(14px, 1.8vw, 16px);
+        color: var(--text);
+      }
+
+      /* ### 2. New CSS for Mobile Redesign
+
+This CSS targets the mobile view and adjusts the layout of the **Symptoms Page** to stack correctly and look sharp.
+
+Add this new media query block into the existing `<style>` block, preferably right after your existing `@media (max-width: 480px)` rule for better organization.
+
+```css */
+      /* ------------------------------------------------------------------ */
+      /* NEW: Heart Attack Symptoms Page Mobile Redesign */
+      /* ------------------------------------------------------------------ */
+      /* ------------------------------------------------------------------ */
+      /* NEW: Heart Attack Symptoms Page Mobile Redesign */
+      /* ------------------------------------------------------------------ */
+      /* ------------------------------------------------------------------ */
+      /* NEW: Heart Attack Symptoms Page Mobile Redesign */
+      /* ------------------------------------------------------------------ */
+      @media (max-width: 768px) {
+        .symptoms-page {
+          /* Ensure the entire section uses space efficiently on mobile */
+          padding: 30px 0;
+          min-height: auto; /* Remove vh constraint for stacking */
+          display: block; /* Override flex alignment */
+          margin-top: 30px;
+        }
+
+        .symptoms-container {
+          display: block; /* Override grid layout for mobile */
+          width: 90%; /* 1. Set the content width to 90% */
+          max-width: 600px; /* Cap max width for readability */
+          padding: 0;
+          background: #616261; /* Apply background to the container itself */
+          border-radius: 12px;
+        }
+
+        /* Target the new stacked container */
+        .symptoms-content-stack {
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 25px; /* Spacing between major blocks */
+        }
+
+        .symptoms-title {
+          text-align: left; /* 3. Align the heading to the left */
+          margin-bottom: 5px;
+          font-size: clamp(28px, 6vw, 36px);
+        }
+
+        /* Styles for the Pain Area Block */
+        .pain-area-block {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start; /* Align content to the left */
+          text-align: left;
+          gap: 10px;
+          padding-top: 0; /* Adjusted padding */
+          padding-bottom: 0; /* Adjusted padding */
+        }
+
+        .pain-area-block .symptom-text {
+          /* 4. Align the pain description text to the left */
+          text-align: left;
+        }
+
+        .human-image-container {
+          /* Adjust size and alignment of the human graphic for mobile */
+          width: 100%; /* Use full width of the container */
+          min-height: 250px;
+          max-height: 400px;
+          margin: 10px 0 0 auto; /* Align to the right using auto margin */
+          align-self: flex-end; /* Ensures container is pushed to the right */
+        }
+
+        .human-image-container img {
+          /* 2. Align the image to the right, using the full screen width */
+          position: static;
+          transform: none;
+          height: 100%;
+          width: 100%; /* Use 100% width to fill the container */
+          max-width: 400px; /* Adjust as needed to control the image size relative to text */
+          margin-left: auto; /* Push image to the right within its container */
+        }
+
+        .pain-area-label {
+          /* 5. Add a #f9c511 colored square at the beginning */
+          font-size: clamp(14px, 3.5vw, 16px);
+          color: var(--accent);
+          font-weight: 500;
+          margin-top: 10px;
+          display: flex; /* Use flex to align the square and text */
+          align-items: center;
+        }
+
+        .pain-area-label::before {
+          content: "";
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          background-color: var(--accent); /* #f9c511 */
+          margin-right: 8px;
+          flex-shrink: 0;
+        }
+
+        /* Styles for the Warning Box */
+        .gastritis-warning {
+          /* 7. Create a #f9c511 box that takes up 75% of the width for the text */
+          background-color: var(--accent); /* Yellow background for urgency */
+          color: var(--bg); /* Dark text on yellow background */
+          font-weight: 700;
+          text-align: center;
+          padding: 18px 15px;
+          border-radius: 5%;
+          width: 75%; /* Set to 75% width */
+          margin: 0 auto; /* Center the 75% width box */
+        }
+
+        .gastritis-warning strong {
+          color: var(--bg);
+          font-family: "Roboto", sans-serif;
+        }
+
+        /* Styles for the List & Illustration Block */
+        .symptoms-list p {
+          font-weight: 700;
+          margin-bottom: 10px;
+          font-family: "Roboto", sans-serif;
+          text-align: left;
+        }
+
+        .symptoms-list ol {
+          padding-left: 0; /* Remove default padding for custom list */
+          list-style: none; /* Remove default list style */
+          font-size: clamp(15px, 3.5vw, 18px);
+          margin-bottom: 25px;
+          font-family: "Roboto", sans-serif;
+        }
+
+        .symptoms-list li {
+          margin-bottom: 15px; /* Increase space for circle */
+          line-height: 1.4;
+          font-family: "Roboto", sans-serif;
+          display: flex; /* Use flex for circle alignment */
+          align-items: flex-start;
+          text-align: left;
+        }
+
+        .symptoms-list li::before {
+          /* 8. Create a black number inside a #f9c511 coloured circle */
+          content: counter(list-item); /* Use the list item counter */
+          counter-increment: list-item;
+          background-color: var(--accent); /* #f9c511 */
+          color: var(--bg); /* Black number text */
+          border-radius: 50%;
+          width: 24px;
+          height: 24px;
+          min-width: 24px;
+          line-height: 24px; /* Center text vertically */
+          text-align: center;
+          font-weight: 700;
+          font-size: 14px;
+          margin-right: 12px;
+          flex-shrink: 0;
+        }
+
+        .illustration-container {
+          width: 100%;
+          max-width: none;
+          margin: 0 auto;
+          padding-top: 10px;
+          text-align: right; /* Align illustration image to the right */
+        }
+
+        .illustration-container img {
+          width: 100%;
+          height: auto;
+          max-width: 350px; /* Control max size of the illustration */
+          margin-left: auto; /* Push image to the right */
+        }
+
+        /* Remove the old grid-based styles */
+        .symptoms-col-1,
+        .symptoms-col-2-3 {
+          display: none !important;
+        }
+        .symptoms-col-1 {
+          padding: 0;
+        }
+        .symptoms-col-2-3 {
+          height: auto;
+        }
+      }
+
+      /* Ensure the desktop view (>= 769px) still uses the original columns */
+      @media (min-width: 769px) {
+        .symptoms-content-stack {
+          display: none;
+        }
+        .symptoms-col-1,
+        .symptoms-col-2-3 {
+          display: flex;
+        } /* Re-activate original desktop columns */
+        .symptoms-container {
+          display: grid;
+        } /* Re-activate original desktop grid */
+
+        /* Re-apply original desktop styles */
+        .symptoms-col-1 {
+          padding: 30px;
+          flex-direction: column;
+          gap: 10px;
+          color: var(--text);
+        }
+      }
+      @media (max-width: 768px) {
+        .symptoms-page {
+          /* Ensure the entire section uses space efficiently on mobile */
+          padding: 30px 0;
+          min-height: auto; /* Remove vh constraint for stacking */
+          display: block; /* Override flex alignment */
+          margin-top: 30px;
+        }
+
+        .symptoms-container {
+          display: block; /* Override grid layout for mobile */
+          width: 95%; /* Use more width on mobile */
+          max-width: 600px; /* Cap max width for readability */
+          padding: 0;
+          background: #616261; /* Apply background to the container itself */
+          border-radius: 12px;
+        }
+
+        /* Target the new stacked container */
+        .symptoms-content-stack {
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 25px; /* Spacing between major blocks */
+        }
+
+        .symptoms-title {
+          text-align: center;
+          margin-bottom: 5px;
+          font-size: clamp(28px, 6vw, 36px);
+        }
+
+        /* Styles for the Pain Area Block */
+        .pain-area-block {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 10px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
+
+        .human-image-container {
+          /* Adjust size of the human graphic for mobile */
+          width: 60%;
+          min-height: 250px;
+          max-height: 400px;
+          margin: 10px auto 0;
+        }
+
+        .human-image-container img {
+          /* Ensure the image scales correctly within the container */
+          position: static;
+          transform: none;
+          height: 100%;
+          width: auto;
+          margin: 0 auto;
+        }
+
+        .pain-area-label {
+          font-size: clamp(14px, 3.5vw, 16px);
+          color: var(--accent);
+          font-weight: 500;
+          margin-top: 10px;
+        }
+
+        /* Styles for the Warning Box */
+        .gastritis-warning {
+          background-color: var(--accent); /* Yellow background for urgency */
+          color: var(--bg); /* Dark text on yellow background */
+          font-weight: 700;
+          text-align: center;
+          padding: 18px 15px;
+          border-radius: 5%;
+        }
+
+        .gastritis-warning strong {
+          color: var(--bg);
+          font-family: "Roboto", sans-serif;
+        }
+
+        /* Styles for the List & Illustration Block */
+        /* .list-illustration-block {
+          background: rgba(0, 0, 0, 0.2);
+          padding: 20px;
+        } */
+
+        .symptoms-list p {
+          font-weight: 700;
+          margin-bottom: 10px;
+          font-family: "Roboto", sans-serif;
+        }
+
+        .symptoms-list ol {
+          padding-left: 20px;
+          font-size: clamp(15px, 3.5vw, 18px);
+          margin-bottom: 25px;
+          font-family: "Roboto", sans-serif;
+        }
+
+        .symptoms-list li {
+          margin-bottom: 8px;
+          line-height: 1.4;
+          font-family: "Roboto", sans-serif;
+        }
+
+        .illustration-container {
+          width: 100%; /* This was the key change */
+          max-width: none;
+          margin: 0 auto;
+          padding-top: 10px;
+        }
+
+        .illustration-container img {
+          width: 100%; /* This ensures the image inside is 100% of the container */
+          height: auto;
+          /* border-radius: 8px; */
+        }
+
+        /* Remove the old grid-based styles */
+        .symptoms-col-1,
+        .symptoms-col-2-3 {
+          display: none !important;
+        }
+        .symptoms-col-1 {
+          padding: 0;
+        }
+        .symptoms-col-2-3 {
+          height: auto;
+        }
+      }
+
+      /* Ensure the desktop view (>= 769px) still uses the original columns */
+      @media (min-width: 769px) {
+        .symptoms-content-stack {
+          display: none;
+        }
+        .symptoms-col-1,
+        .symptoms-col-2-3 {
+          display: flex;
+        } /* Re-activate original desktop columns */
+        .symptoms-container {
+          display: grid;
+        } /* Re-activate original desktop grid */
+
+        /* Re-apply original desktop styles */
+        .symptoms-col-1 {
+          padding: 30px;
+          flex-direction: column;
+          gap: 10px;
+          color: var(--text);
+        }
+      }
+
+      /* -----------------------------
+         Comparison sequence
+         ----------------------------- */
+      /* -----------------------------
+   COMPARISON SEQUENCE
+   ----------------------------- */
+      /* -----------------------------
+   COMPARISON SEQUENCE
+   ----------------------------- */
+      .comparison-sequence {
+        height: auto;
+        width: 100%;
+        background-color: var(--bg);
+        position: relative;
+        margin-bottom: 0; /* remove extra bottom spacing */
+        padding-bottom: 0; /* remove hidden space */
+      }
+
+      .comparison-pin-container {
+        width: 100%;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2vw;
+        padding: 0 3vw;
+        overflow: hidden;
+        margin-bottom: 0;
+      }
+
+      .comparison-image-area {
+        flex-shrink: 0;
+        max-width: 55%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      #comparison-img {
+        width: 100%;
+        height: auto;
+        max-height: 80vh;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .comparison-text-area {
+        flex-shrink: 0;
+        min-width: 250px;
+        max-width: 340px;
+        padding: 0 20px;
+        color: var(--text);
+        text-align: left;
+      }
+
+      .comparison-year {
+        display: block;
+        font-size: clamp(36px, 8vw, 72px);
+        color: var(--accent);
+        font-weight: 800;
+        line-height: 1.05;
+      }
+
+      .comparison-deaths {
+        display: block;
+        font-size: clamp(18px, 3.2vw, 32px);
+        font-weight: 400;
+      }
+
+      /* --------- Tablet adjustments --------- */
+      @media (max-width: 1024px) {
+        .comparison-image-area {
+          max-width: 70%;
+        }
+      }
+
+      /* --------- Small phones --------- */
+      /* --------- Small phones (Canvas centered) --------- */
+      @media (max-width: 600px) {
+        .scroll-container {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          height: 100vh; /* centers both vertically */
+          gap: 1.5rem;
+        }
+
+        canvas {
+          width: 92vw;
+          max-width: 92vw;
+          height: auto;
+          display: block;
+          margin: 0 auto; /* horizontally centered */
+        }
+
+        .scroll-text {
+          max-width: 90%;
+          text-align: center;
+          margin: 0 auto; /* horizontally centered */
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .scroll-text .data-year {
+          font-size: clamp(18px, 7vw, 28px);
+        }
+
+        .scroll-text .data-count {
+          font-size: clamp(14px, 4.5vw, 20px);
+        }
+      }
+
+      /* -----------------------------
+         Risk factors & Immediate actions (Section B)
+         ----------------------------- */
+      .risk-factors .content {
+        width: min(95%, 1100px);
+        margin-top: 0; /* pull up slightly to close remaining gap */
+        position: relative;
+        z-index: 1;
+      }
+
+      /* On small screens, slightly less negative pull for better spacing */
+      @media (max-width: 768px) {
+        .risk-factors {
+          margin-top: -60vh;
+        }
+        /* 3. Hide the original large diagram's box on mobile */
+        #g-HeartImage-box {
+          display: none;
+        }
+        /* 4. Show the new stacked diagrams on mobile/tablet */
+        .mobile-heart-diagrams {
+          display: flex;
+        }
+        .heart-attack-image-area {
+          /* allow full width for stacked diagrams on mobile */
+          max-width: 100%;
+          min-width: 100%;
+        }
+
+        /* 1. Ensure diagrams take up maximum width within the container */
+        #g-heart-box,
+        #g-coranary-box {
+          max-width: 100%;
+        }
+
+        /* FIX: Increase container size to prevent bottom clipping */
+        #g-heart-box #g-heart-Artboard_1 > div:first-child {
+          padding-bottom: 120% !important; /* Original was ~116.65% */
+        }
+        #g-coranary-box #g-coranary-Artboard_1 > div:first-child {
+          padding-bottom: 165% !important; /* Original was ~150.5% */
+        }
+
+        /* 2. Apply a small, responsive font size to ALL AI2HTML text inside the mobile diagrams */
+        #g-heart-box .g-aiAbs p,
+        #g-coranary-box .g-aiAbs p,
+        #g-heart-box .g-artboard p,
+        #g-coranary-box .g-artboard p {
+          /* Small, responsive font size using clamp() to fill the screen appropriately */
+          font-size: clamp(14px, 3.5vw, 18px) !important;
+          line-height: 1.2 !important;
+          /* Ensure font weight is readable */
+          font-weight: 500 !important;
+
+          /* Enhance visibility */
+        }
+
+        /* Reset all AI2HTML elements in these two boxes to use position adjustments */
+        #g-heart-box .g-aiAbs,
+        #g-coranary-box .g-aiAbs {
+          /* Set base width and remove auto positioning */
+          width: auto !important;
+          right: auto !important;
+          left: 0 !important;
+          text-align: left !important;
+        }
+
+        /* Override for specific bold/large text elements that still need to be clamp()'d */
+        #g-coranary-Artboard_1 .g-pstyle0 {
+          font-size: clamp(20px, 4.5vw, 24px) !important;
+          line-height: 1.1 !important;
+        }
+
+        /* --- Heart Diagram (g-heart-box) - Position Overrides to match want-1.jpg --- */
+
+        /* Aorta (right side) */
+        #g-heart-Artboard_1 #g-ai0-1 {
+          right: 5% !important;
+          left: auto !important;
+          top: 0% !important;
+          text-align: right !important;
+        }
+        /* Left main coronary artery (right side) */
+        #g-heart-Artboard_1 #g-ai0-3 {
+          right: 5% !important;
+          left: auto !important;
+          top: 15% !important;
+          text-align: right !important;
+        }
+        /* Site of blockage (right side) */
+        #g-heart-Artboard_1 #g-ai0-4 {
+          right: 5% !important;
+          left: auto !important;
+          top: 40% !important;
+          text-align: right !important;
+        }
+        /* Blood supply blocked (right side) */
+        #g-heart-Artboard_1 #g-ai0-5 {
+          right: 5% !important;
+          left: auto !important;
+          top: 58% !important;
+          text-align: right !important;
+        }
+
+        /* FIX: Dead heart muscle tissue (right side - move down further) */
+        #g-heart-Artboard_1 #g-ai0-7 {
+          right: 5% !important;
+          left: auto !important;
+          top: 75% !important;
+          text-align: right !important;
+        }
+
+        /* Superior vena cava (left side) */
+        #g-heart-Artboard_1 #g-ai0-2 {
+          left: 5% !important;
+          right: auto !important;
+          top: 10% !important;
+        }
+        /* Right coronary artery (left side) */
+        #g-heart-Artboard_1 #g-ai0-6 {
+          left: 5% !important;
+          right: auto !important;
+          top: 60% !important;
+        }
+
+        /* --- Coronary Artery Diagram (g-coranary-box) - Position Overrides to match want-2.jpg --- */
+
+        /* coronary artery (top right) */
+        #g-coranary-Artboard_1 #g-ai0-1 {
+          right: 5% !important;
+          left: auto !important;
+          top: 0% !important;
+          text-align: right !important;
+        }
+        /* Plaques (middle right) */
+        #g-coranary-Artboard_1 #g-ai0-2 {
+          right: 5% !important;
+          left: auto !important;
+          top: 22% !important;
+          text-align: right !important;
+        }
+
+        /* Narrowed artery (left side) */
+        #g-coranary-Artboard_1 #g-ai0-3 {
+          left: 5% !important;
+          right: auto !important;
+          top: 55% !important;
+        }
+        /* Blood clot (left side) */
+        #g-coranary-Artboard_1 #g-ai0-4 {
+          left: 5% !important;
+          right: auto !important;
+          top: 75% !important;
+        }
+
+        /* Ensure all right-aligned styles are fixed back to left or manually right based on the new positions */
+        #g-heart-Artboard_1 .g-pstyle0,
+        #g-heart-Artboard_1 .g-pstyle1 {
+          text-align: inherit !important;
+        }
+        #g-coranary-Artboard_1 .g-pstyle0,
+        #g-coranary-Artboard_1 . {
+          text-align: inherit !important;
+        }
+      }
+      .pin-sequence {
+        height: auto; /* allow dynamic resizing */
+        min-height: 100vh; /* ensure full coverage */
+      }
+
+      .cvd-section {
+        margin-top: -1px; /* overlap 1px to eliminate visible gap */
+      }
+
+      .risk-factors h1 {
+        font-family: "Merriweather", serif;
+        font-size: clamp(24px, 3.8vw, 38px);
+        line-height: 1.05;
+        font-weight: 700;
+        margin-bottom: 26px;
+      }
+
+      .risk-factors h2 {
+        font-family: "Merriweather", serif;
+        font-size: clamp(18px, 2.8vw, 24px);
+        line-height: 1.25;
+        font-weight: 700;
+        margin-top: 40px;
+        margin-bottom: 20px;
+      }
+
+      .factor {
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 26px;
+      }
+
+      .factor img {
+        width: 128px;
+        height: 128px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      .factor p {
+        font-size: clamp(15px, 1.9vw, 22px);
+        line-height: 1.45;
+        color: var(--text);
+      }
+
+      .factor p span {
+        font-weight: 700;
+      }
+
+      .actions-section {
+        padding: 40px 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      .actions-section .content {
+        width: min(95%, 1100px);
+      }
+
+      .actions-section h2 {
+        font-family: "Merriweather", serif;
+        font-weight: 700;
+        font-size: clamp(22px, 3.2vw, 38px);
+        margin-bottom: 20px;
+      }
+
+      .action {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 22px;
+      }
+
+      .action img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+
+      .text .title {
+        font-family: "Merriweather", serif;
+        font-weight: 700;
+        font-size: clamp(18px, 2.2vw, 24px);
+        margin: 0 0 6px 0;
+      }
+
+      .text .desc {
+        font-family: "Roboto", sans-serif;
+        font-size: clamp(14px, 1.8vw, 20px);
+        line-height: 1.45;
+      }
+
+      .quote {
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        font-size: clamp(16px, 2vw, 22px);
+        line-height: 1.4;
+        margin-top: 18px;
+        font-style: italic;
+        color: var(--text);
+      }
+
+      .bottom-image {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      #g-pie-box {
+        width: 100%;
+        max-width: 433px;
+        position: relative;
+      }
+
+      .g-artboard {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1/1;
+        overflow: visible;
+      }
+
+      .g-aiImg {
+        width: 100%;
+        height: auto;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .g-aiAbs {
+        font-family: "Roboto", sans-serif;
+        position: absolute;
+        color: var(--text);
+        font-size: clamp(14px, 1.8vw, 20px);
+        line-height: 1.2;
+      }
+
+      /* -----------------------------
+         Small-screen contrast improvements (user chose B)
+         Only applied on <= 1024px to keep desktop unchanged visually
+         ----------------------------- */
+      @media (max-width: 1024px) {
+        /* stronger backdrop for readability on tablets / phones */
+        .scroll-text,
+        .stat-pin-container,
+        .comparison-text-area,
+        .risk-factors .content,
+        .actions-section .content,
+        .cvd-section .content,
+        .heart-attack-container,
+        .symptoms-container {
+          background: #616261;
+          padding: 18px;
+          border-radius: 12px;
+        }
+
+        /* increase text contrast and weight */
+        .stat-text,
+        .scroll-text,
+        .cvd-section h2,
+        .heart-attack-main-title,
+        .symptoms-title {
+          /* text-shadow: 0 6px 18px rgba(0, 0, 0, 0.55); */
+          font-weight: 600;
+          text-align: left;
+        }
+
+        /* make AI2HTML overlays easier to read */
+        .g-aiAbs {
+          /* text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); */
+          /* background: #616261; */
+          padding: 6px;
+          border-radius: 6px;
+        }
+      }
+
+      /* -----------------------------
+         Breakpoints (small adjustments)
+         ----------------------------- */
+
+      /* small desktop / large laptop */
+      @media (max-width: 1440px) {
+        canvas {
+          width: 80vw;
+        }
+
+        .comparison-image-area {
+          max-width: 56%;
+        }
+      }
+
+      /* medium laptop */
+      @media (max-width: 1200px) {
+        .heart-attack-content {
+          gap: 32px;
+        }
+        .heart-attack-image-area {
+          min-width: 58%;
+        }
+      }
+
+      /* tablet landscape */
+      @media (max-width: 1024px) {
+        .green {
+          height: 85vh;
+        }
+        .green h1 {
+          font-size: var(--fs-h1);
+        }
+
+        /* stack sequences side -> column */
+        .scroll-container {
+          flex-direction: column;
+        }
+
+        canvas {
+          width: 84vw;
+          max-width: 760px;
+        }
+
+        .heart-attack-content {
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .symptoms-container {
+          grid-template-columns: 1fr;
+        }
+
+        .symptoms-col-2-3 {
+          height: 540px;
+        }
+
+        .comparison-image-area {
+          max-width: 72%;
+        }
+      }
+
+      /* tablet portrait / large phones */
+      /* tablet portrait / large phones */
+      @media (max-width: 768px) {
+        .green h1 {
+          font-size: clamp(28px, 8.6vw, 54px);
+          text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+          /* text-shadow: none; */
+        }
+
+        .ai2html {
+          max-width: 560px;
+        }
+
+        .factor img,
+        .action img {
+          width: 110px;
+          height: 110px;
+        }
+
+        .comparison-image-area {
+          max-width: 100%;
+        }
+
+        #comparison-img {
+          max-height: 40vh;
+        }
+
+        .comparison-text-area {
+          max-width: 92%;
+          text-align: center;
+          padding: 12px;
+          border-radius: 10px;
+        }
+
+        /* Make pinned sequences friendly to smaller screens */
+        .stat-sequence,
+        .comparison-sequence {
+          /* Maintain this height but increase the scroll duration in JS */
+          height: calc(100vh * 5);
+        }
+
+        /* NEW FIX: Add a bottom margin to the comparison sequence to create separation space */
+        .comparison-sequence {
+          margin-bottom: 250px; /* Adjust this value if you need more or less separation */
+        }
+      }
+      /* small phones */
+      @media (max-width: 480px) {
+        /* stronger contrast on small phones */
+        body {
+          background-color: #616261; /* subtle tweak while staying in palette */
+        }
+
+        .green {
+          padding: 18px 12px;
+          height: auto;
+          min-height: 60vh;
+          justify-content: center;
+        }
+
+        .green h1 {
+          font-size: clamp(26px, 9.5vw, 44px);
+          line-height: 1.02;
+        }
+
+        .green h5 {
+          font-size: clamp(14px, 4.5vw, 22px);
+          font-weight: 500;
+        }
+
+        canvas {
+          width: 94vw;
+          max-width: 680px;
+          border-radius: 6px;
+        }
+
+        .scroll-text,
+        .cvd-section .content,
+        .risk-factors .content,
+        .actions-section .content {
+          padding: 14px;
+          border-radius: 10px;
+          background: #616261;
+        }
+
+        .factor {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .factor img {
+          width: 88px;
+          height: 88px;
+          margin-bottom: 8px;
+        }
+
+        .action {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .action img {
+          width: 88px;
+          height: 88px;
+        }
+
+        .quote {
+          font-size: 15px;
+        }
+
+        .comparison-year {
+          font-size: clamp(28px, 10vw, 48px);
+        }
+
+        .stat-sequence {
+          height: auto; /* dynamic height */
+          position: relative;
+        }
+
+        .comparison-sequence {
+          height: auto; /* removes unnecessary scroll gap */
+          margin-bottom: 0; /* ensures seamless transition */
+        }
+
+        .risk-factors .content {
+          margin-top: 0; /* previously used negative margin to pull upward */
+          position: relative;
+          z-index: 1;
+        }
+
+        /* make ai-overlays compact */
+        .g-aiAbs {
+          font-size: clamp(12px, 3.6vw, 16px);
+          padding: 6px;
+        }
+
+        .sources {
+          max-width: 480px;
+          height: 70px;
+          font-size: 12px;
+          text-align: center;
+          margin: 0 auto;
+        }
+      }
+
+      /* final tiny tweak: ensure pinned content doesn't overflow on tiny viewports */
+      @media (max-height: 560px) and (max-width: 420px) {
+        .stat-pin-container,
+        .comparison-pin-container {
+          padding-top: 12px;
+          padding-bottom: 12px;
+        }
+
+        .stat-text {
+          font-family: "Roboto", sans-serif;
+          font-size: clamp(16px, 3.2vw, 28px);
+          line-height: 1.6;
+          width: 92%;
+          font-weight: 500;
+          text-shadow: none;
+          text-align: center;
+        }
+      }
+      /* ===========================
+   COMBINED MOBILE FIXES
+   - Specific, section-scoped media rules
+   - Keeps canvas centered (<=480px)
+   - Keeps comparison stacked & centered (<=600px)
+   Place this AFTER your other media queries.
+   =========================== */
+
+      /* ---------- Canvas centering on very small phones (strict) ---------- */
+      @media (max-width: 480px) {
+        /* only affect the canvas area inside the pin-sequence to avoid global conflict */
+        .pin-sequence .scroll-container {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          height: 100vh; /* ensures vertical centering within viewport */
+          gap: 1.2rem;
+          padding: 0 12px;
+        }
+
+        .pin-sequence canvas {
+          width: 92vw !important;
+          max-width: 92vw !important;
+          height: auto;
+          display: block;
+          margin: 0 auto;
+        }
+
+        .pin-sequence .scroll-text {
+          max-width: 92%;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+      }
+
+      /* ---------- Comparison stacked + centered on small phones ---------- */
+      /* Use a slightly larger breakpoint so portrait phones get stacked layout */
+      @media (max-width: 600px) {
+        .comparison-sequence .comparison-pin-container {
+          flex-direction: column !important; /* explicit intent */
+          justify-content: center !important;
+          align-items: center !important;
+          text-align: center;
+          gap: 1rem;
+          padding: 18px;
+        }
+
+        .comparison-sequence .comparison-image-area {
+          max-width: 90% !important;
+          justify-content: center !important;
+        }
+
+        .comparison-sequence #comparison-img {
+          max-height: 50vh;
+          width: auto;
+          margin: 0 auto;
+        }
+
+        .comparison-sequence .comparison-text-area {
+          max-width: 92% !important;
+          padding: 6px 0 !important;
+          text-align: center !important;
+        }
+
+        .comparison-sequence .comparison-year {
+          font-size: clamp(28px, 9vw, 48px);
+        }
+
+        .comparison-sequence .comparison-deaths {
+          font-size: clamp(16px, 4vw, 22px);
+        }
+      }
+
+      /* ---------- Safety: ensure desktop/tablet preserve row layout ---------- */
+      @media (min-width: 601px) {
+        .comparison-sequence .comparison-pin-container {
+          flex-direction: row !important;
+          text-align: left;
+        }
+
+        .pin-sequence .scroll-container {
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      .sources {
+        max-width: 480px;
+
+        height: 70px;
+        font-size: 12px;
+        text-align: center;
+        margin: 0 auto;
+      }
+      /* ADDED AI2HTML STYLES HERE */
+      /* Styles for g-heart-box (Copied from heart.html) */
+      #g-heart-box,
+      #g-heart-box .g-artboard {
+        margin: 0 auto;
+      }
+      #g-heart-box p {
+        margin: 0;
+      }
+      #g-heart-box .g-aiAbs {
+        position: absolute;
+      }
+      #g-heart-box .g-aiImg {
+        position: absolute;
+        top: 0;
+        display: block;
+        width: 100% !important;
+      }
+      #g-heart-box .g-aiSymbol {
+        position: absolute;
+        box-sizing: border-box;
+      }
+      #g-heart-box .g-aiPointText p {
+        white-space: nowrap;
+      }
+      #g-heart-Artboard_1 {
+        position: relative;
+        overflow: hidden;
+      }
+      #g-heart-Artboard_1 p {
+        /* Original large size: 54px */
+        font-weight: 500;
+        line-height: 68px;
+        opacity: 1;
+        letter-spacing: 0em;
+        font-size: 54px;
+        text-align: left;
+        color: rgb(255, 255, 255);
+        text-transform: none;
+        padding-bottom: 0;
+        padding-top: 0;
+        mix-blend-mode: normal;
+        font-style: normal;
+        height: auto;
+        position: static;
+      }
+      #g-heart-Artboard_1 .g-pstyle0 {
+        line-height: 65px;
+        text-align: right;
+      }
+      #g-heart-Artboard_1 .g-pstyle1 {
+        text-align: right;
+      }
+
+      /* Styles for g-coranary-box (Copied from coranary.html) */
+      #g-coranary-box,
+      #g-coranary-box .g-artboard {
+        margin: 0 auto;
+      }
+      #g-coranary-box p {
+        margin: 0;
+      }
+      #g-coranary-box .g-aiAbs {
+        position: absolute;
+      }
+      #g-coranary-box .g-aiImg {
+        position: absolute;
+        top: 0;
+        display: block;
+        width: 100% !important;
+      }
+      #g-coranary-box .g-aiSymbol {
+        position: absolute;
+        box-sizing: border-box;
+      }
+      #g-coranary-box .g-aiPointText p {
+        white-space: nowrap;
+      }
+      #g-coranary-Artboard_1 {
+        position: relative;
+        overflow: hidden;
+      }
+      #g-coranary-Artboard_1 p {
+        /* Original large size: 54px */
+        font-weight: 500;
+        line-height: 68px;
+        opacity: 1;
+        letter-spacing: 0em;
+        font-size: 54px;
+        text-align: left;
+        color: rgb(255, 255, 255);
+        text-transform: none;
+        padding-bottom: 0;
+        padding-top: 0;
+        mix-blend-mode: normal;
+        font-style: normal;
+        height: auto;
+        position: static;
+      }
+      #g-coranary-Artboard_1 .g-pstyle0 {
+        /* Original large size: 74px */
+        font-weight: 700;
+        line-height: 79px;
+        font-size: 74px;
+        text-align: right;
+      }
+      #g-coranary-Artboard_1 .g-pstyle1 {
+        height: 68px;
+        text-align: right;
+      }
+
+      /* ------------------------------------------------------------------ */
+      /* NEW: Mobile-specific styles for AI2HTML text inside the heart section */
+      /* ------------------------------------------------------------------ */
+      @media (max-width: 768px) {
+        .risk-factors {
+          margin-top: -60vh;
+        }
+        /* 3. Hide the original large diagram's box on mobile */
+        #g-HeartImage-box {
+          display: none;
+        }
+        /* 4. Show the new stacked diagrams on mobile/tablet */
+        .mobile-heart-diagrams {
+          display: flex;
+        }
+        .heart-attack-image-area {
+          /* allow full width for stacked diagrams on mobile */
+          max-width: 100%;
+          min-width: 100%;
+        }
+
+        /* 1. Ensure diagrams take up maximum width within the container */
+        #g-heart-box,
+        #g-coranary-box {
+          max-width: 100%;
+        }
+
+        /* NEW FIXES FOR CLIPPING */
+        /* Override overflow:hidden on the artboard and ensure image fills space */
+        #g-heart-box .g-artboard,
+        #g-coranary-box .g-artboard {
+          overflow: visible !important; /* IMPORTANT: Allows content to escape the container */
+        }
+        .mobile-heart-diagrams .g-aiImg {
+          height: 100% !important; /* Allow image to stretch to fill the expanded container */
+        }
+
+        /* Force container height taller than the image content (Final Safety Net) */
+        #g-heart-box #g-heart-Artboard_1 > div:first-child {
+          padding-bottom: 120% !important; /* Ensure vertical space for content */
+        }
+        #g-coranary-box #g-coranary-Artboard_1 > div:first-child {
+          padding-bottom: 165% !important; /* Ensure vertical space for content */
+        }
+
+        /* 2. Apply a small, responsive font size to ALL AI2HTML text inside the mobile diagrams */
+        #g-heart-box .g-aiAbs p,
+        #g-coranary-box .g-aiAbs p,
+        #g-heart-box .g-artboard p,
+        #g-coranary-box .g-artboard p {
+          /* Small, responsive font size using clamp() to fill the screen appropriately */
+          font-size: clamp(14px, 3.5vw, 18px) !important;
+          line-height: 1.2 !important;
+          /* Ensure font weight is readable */
+          color: #ffffff;
+          font-weight: 500 !important;
+          /* Enhance visibility */
+        }
+
+        /* Reset all AI2HTML elements in these two boxes to use position adjustments */
+        #g-heart-box .g-aiAbs,
+        #g-coranary-box .g-aiAbs {
+          /* Set base width and remove auto positioning */
+          width: auto !important;
+          right: auto !important;
+          left: 0 !important;
+          text-align: left !important;
+        }
+
+        /* Override for specific bold/large text elements that still need to be clamp()'d */
+        #g-coranary-Artboard_1 .g-pstyle0 {
+          font-size: clamp(20px, 4.5vw, 24px) !important;
+          line-height: 1.1 !important;
+        }
+
+        /* --- Heart Diagram (g-heart-box) - Position Overrides to match want-1.jpg --- */
+
+        /* Aorta (right side) */
+        #g-heart-Artboard_1 #g-ai0-1 {
+          right: 5% !important;
+          left: auto !important;
+          top: 0% !important;
+          text-align: right !important;
+        }
+        /* Left main coronary artery (right side) */
+        #g-heart-Artboard_1 #g-ai0-3 {
+          right: 5% !important;
+          left: auto !important;
+          top: 15% !important;
+          text-align: right !important;
+        }
+        /* Site of blockage (right side) */
+        #g-heart-Artboard_1 #g-ai0-4 {
+          right: 5% !important;
+          left: auto !important;
+          top: 40% !important;
+          text-align: right !important;
+        }
+        /* Blood supply blocked (right side) */
+        #g-heart-Artboard_1 #g-ai0-5 {
+          right: 5% !important;
+          left: auto !important;
+          top: 58% !important;
+          text-align: right !important;
+        }
+
+        /* Dead heart muscle tissue (right side - moved down) */
+        #g-heart-Artboard_1 #g-ai0-7 {
+          right: 5% !important;
+          left: auto !important;
+          top: 75% !important;
+          text-align: right !important;
+        }
+
+        /* Superior vena cava (left side) */
+        #g-heart-Artboard_1 #g-ai0-2 {
+          left: 5% !important;
+          right: auto !important;
+          top: 10% !important;
+        }
+        /* Right coronary artery (left side) */
+        #g-heart-Artboard_1 #g-ai0-6 {
+          left: 5% !important;
+          right: auto !important;
+          top: 60% !important;
+        }
+
+        /* --- Coronary Artery Diagram (g-coranary-box) - Position Overrides to match want-2.jpg --- */
+
+        /* coronary artery (top right) */
+        #g-coranary-Artboard_1 #g-ai0-1 {
+          right: 5% !important;
+          left: auto !important;
+          top: 0% !important;
+          text-align: right !important;
+        }
+        /* Plaques (middle right) */
+        #g-coranary-Artboard_1 #g-ai0-2 {
+          right: 5% !important;
+          left: auto !important;
+          top: 22% !important;
+          text-align: right !important;
+        }
+
+        /* Narrowed artery (left side) */
+        #g-coranary-Artboard_1 #g-ai0-3 {
+          left: 5% !important;
+          right: auto !important;
+          top: 55% !important;
+        }
+        /* Blood clot (left side) */
+        #g-coranary-Artboard_1 #g-ai0-4 {
+          left: 5% !important;
+          right: auto !important;
+          top: 75% !important;
+        }
+
+        /* Ensure all right-aligned styles are fixed back to left or manually right based on the new positions */
+        #g-heart-Artboard_1 .g-pstyle0,
+        #g-heart-Artboard_1 .g-pstyle1 {
+          text-align: inherit !important;
+        }
+        #g-coranary-Artboard_1 .g-pstyle0,
+        #g-coranary-Artboard_1 .g-pstyle1 {
+          text-align: inherit !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="green">
+      <h1>Gone Too Soon</h1>
+      <h5>The Rise of Young Heart Deaths</h5>
+    </section>
+
+    <section class="stat-sequence">
+      <div class="stat-pin-container">
+        <p class="stat-text"></p>
+        <p class="stat-text"></p>
+        <p class="stat-text"></p>
+        <p class="stat-text"></p>
+      </div>
+    </section>
+
+    <section class="pin-sequence">
+      <div class="scroll-container">
+        <canvas id="seq-canvas" width="1702" height="1550"></canvas>
+        <div class="scroll-text"><div id="weight-text"></div></div>
+      </div>
+    </section>
+
+    <section class="cvd-section">
+      <div class="content">
+        <p class="intro">
+          <strong>Cardiovascular diseases (CVD)</strong> are conditions that
+          affect <br />1. heart <br />2. blood vessels
+        </p>
+
+        <h2>Deaths resulting from major circulatory system diseases in 2020</h2>
+
+        <div class="image-container">
+          <div id="g-Bubbles-box" class="ai2html">
+            <div id="g-Bubbles-Artboard_1" class="g-artboard">
+              <div></div>
+              <div class="g-artboard-inner">
+                <img
+                  class="g-aiImg"
+                  alt="Deaths from circulatory system diseases"
+                  src="images/Bubbles-Artboard_1.png"
+                />
+                <div
+                  class="g-aiAbs"
+                  style="top: 7.8%; right: 5.1%; width: 27.5%"
+                >
+                  <p class="g-pstyle4">Cerebrovascular diseases</p>
+                  <p class="g-pstyle5">4,962</p>
+                </div>
+                <div
+                  class="g-aiAbs"
+                  style="top: 7.8%; left: 4.4%; width: 25.9%"
+                >
+                  <p>Ischaemic heart disease</p>
+                  <p class="g-pstyle0">15,761</p>
+                </div>
+                <div
+                  class="g-aiAbs"
+                  style="top: 41.2%; right: 5.3%; width: 19.5%"
+                >
+                  <p class="g-pstyle4">Other heart diseases</p>
+                  <p class="g-pstyle5">7,974</p>
+                </div>
+                <div
+                  class="g-aiAbs"
+                  style="top: 41.2%; left: 4.4%; width: 24.8%"
+                >
+                  <p class="g-pstyle1">Hypertensive diseases</p>
+                  <p class="g-pstyle0">4,266</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="disease-info">
+          <p>
+            <strong>Hypertensive diseases:</strong> Problems from high blood
+            pressure, e.g., heart failure, stroke risk.
+          </p>
+          <p>
+            <strong>Ischaemic heart disease:</strong> Narrowed arteries reduce
+            blood to the heart, causing angina or heart attack.
+          </p>
+          <p>
+            <strong>Other heart diseases:</strong> Includes cardiomyopathy,
+            arrhythmias, congenital defects, and inflammation.
+          </p>
+          <p>
+            <strong>Cerebrovascular diseases:</strong> Blood vessel disorders in
+            the brain, mainly stroke and TIAs (Transient Ischemic Attack).
+          </p>
+        </div>
+
+        <div class="heart-section">
+          <h3>The human heart</h3>
+          <p>
+            The human heart, about the size of a fist, is the body’s strongest
+            muscle. It begins beating just three weeks after conception and, by
+            age 70, will have beaten 2.5 billion times. Through 97,000 km of
+            blood vessels, it pumps blood to deliver oxygen and nutrients while
+            removing waste.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="heart-attack-page">
+      <div class="heart-attack-container wrap">
+        <div class="heart-attack-title">
+          <h2 class="heart-attack-main-title">
+            What happens during a heart attack
+          </h2>
+        </div>
+
+        <div class="heart-attack-content">
+          <div class="heart-attack-image-area">
+            <div id="g-HeartImage-box" class="ai2html">
+              <div
+                id="g-HeartImage-Artboard_1"
+                class="g-artboard"
+                style="max-width: 837px; max-height: 625px"
+                data-aspect-ratio="1.339"
+                data-min-width="0"
+              >
+                <div style="padding: 0 0 74.6995% 0"></div>
+                <img
+                  id="g-HeartImage-Artboard_1-img"
+                  class="g-HeartImage-Artboard_1-img g-aiImg"
+                  alt="Anatomy of the heart showing arteries and blockages."
+                  src="images/HeartImage-Artboard_1.jpg"
+                />
+                <div
+                  id="g-ai0-1"
+                  class="g-Layer_1 g-aiAbs"
+                  style="top: 8.6368%; right: 5.5241%; width: 10.1553%"
+                >
+                  <p class="g-pstyle1">coronary artery</p>
+                </div>
+                <div
+                  id="g-ai0-2"
+                  class="g-Layer_1 g-aiAbs"
+                  style="top: 9.2765%; left: 37.479%; width: 6.81%"
+                >
+                  <p>Aorta</p>
+                </div>
+                <div
+                  id="g-ai0-3"
+                  class="g-Layer_1 g-aiAbs"
+                  style="top: 16.4738%; left: 2.2994%; width: 10.3943%"
+                >
+                  <p>Superior</p>
+                  <p>vena cava</p>
+                </div>
+                <div
+                  id="g-ai0-4"
+                  class="g-Layer_1 g-aiAbs g-aiPointText"
+                  style="
+                    top: 22.263%;
+                    margin-top: -11.2px;
+                    left: 88.0292%;
+                    width: 74px;
+                  "
+                >
+                  <p class="g-pstyle1">Plaques</p>
+                </div>
+                <div
+                  id="g-ai0-5"
+                  class="g-Layer_1 g-aiAbs"
+                  style="top: 24.9506%; right: 37.0108%; width: 10.6332%"
+                >
+                  <p class="g-pstyle2">Left main</p>
+                  <p class="g-pstyle2">coronary artery</p>
+                </div>
+                <div
+                  id="g-ai0-6"
+                  class="g-Layer_1 g-aiAbs"
+                  style="top: 41.7443%; left: 2.2994%; width: 9.08%"
+                >
+                  <p>Right</p>
+                  <p>coronary artery</p>
+                </div>
+                <div
+                  id="g-ai0-7"
+                  class="g-Layer_1 g-aiAbs"
+                  style="top: 59.9775%; right: 36.9433%; width: 10.3943%"
+                >
+                  <p class="g-pstyle2">Site of</p>
+                  <p class="g-pstyle2">blockage</p>
+                </div>
+                <div
+                  id="g-ai0-8"
+                  class="g-Layer_1 g-aiAbs"
+                  style="top: 60.6173%; left: 69.1052%; width: 9.08%"
+                >
+                  <p>Narrowed</p>
+                  <p>artery</p>
+                </div>
+                <div
+                  id="g-ai0-9"
+                  class="g-Layer_1 g-aiAbs"
+                  style="top: 73.2525%; right: 36.9833%; width: 8.3632%"
+                >
+                  <p class="g-pstyle2">Blood</p>
+                  <p class="g-pstyle2">supply</p>
+                  <p class="g-pstyle2">blocked</p>
+                </div>
+                <div
+                  id="g-ai0-10"
+                  class="g-Layer_1 g-aiAbs"
+                  style="top: 75.0119%; left: 69.1052%; width: 5.8542%"
+                >
+                  <p>Blood clot</p>
+                </div>
+                <div
+                  id="g-ai0-11"
+                  class="g-Layer_1 g-aiAbs"
+                  style="top: 87.6471%; right: 36.9547%; width: 11.1111%"
+                >
+                  <p class="g-pstyle2">Dead heart muscle tissue</p>
+                </div>
+              </div>
+            </div>
+            <div class="mobile-heart-diagrams">
+              <div id="g-heart-box" class="ai2html">
+                <div
+                  id="g-heart-Artboard_1"
+                  class="g-artboard"
+                  style="max-width: 1678px; max-height: 1957px"
+                  data-aspect-ratio="0.857"
+                  data-min-width="0"
+                >
+                  <div style="padding: 0 0 116.65% 0"></div>
+                  <img
+                    id="g-heart-Artboard_1-img"
+                    class="g-heart-Artboard_1-img g-aiImg"
+                    alt=""
+                    src="images/heart-Artboard_1.jpg"
+                  />
+                  <div
+                    id="g-ai0-1"
+                    class="g-Layer_1 g-aiAbs"
+                    style="top: 1.7881%; right: 23.0292%; width: 11.621%"
+                  >
+                    <p class="g-pstyle0">Aorta</p>
+                  </div>
+                  <div
+                    id="g-ai0-2"
+                    class="g-Layer_1 g-aiAbs"
+                    style="top: 14.9178%; left: 1.2907%; width: 17.5805%"
+                  >
+                    <p>Superior</p>
+                    <p>vena cava</p>
+                  </div>
+                  <div
+                    id="g-ai0-3"
+                    class="g-Layer_1 g-aiAbs"
+                    style="top: 20.3332%; right: 2.5799%; width: 18.0572%"
+                  >
+                    <p class="g-pstyle1">Left main</p>
+                    <p class="g-pstyle1">coronary artery</p>
+                  </div>
+                  <div
+                    id="g-ai0-4"
+                    class="g-Layer_1 g-aiAbs"
+                    style="top: 55.0223%; right: 2.5359%; width: 17.5805%"
+                  >
+                    <p class="g-pstyle1">Site of</p>
+                    <p class="g-pstyle1">blockage</p>
+                  </div>
+                  <div
+                    id="g-ai0-5"
+                    class="g-Layer_1 g-aiAbs"
+                    style="top: 70.1445%; right: 2.5514%; width: 14.1836%"
+                  >
+                    <p class="g-pstyle1">Blood</p>
+                    <p class="g-pstyle1">supply</p>
+                    <p class="g-pstyle1">blocked</p>
+                  </div>
+                  <div
+                    id="g-ai0-6"
+                    class="g-Layer_1 g-aiAbs"
+                    style="top: 74.1295%; left: 1.2907%; width: 15.3159%"
+                  >
+                    <p>Right</p>
+                    <p>coronary artery</p>
+                  </div>
+                  <div
+                    id="g-ai0-7"
+                    class="g-Layer_1 g-aiAbs"
+                    style="top: 82.7634%; right: 2.5213%; width: 18.8319%"
+                  >
+                    <p class="g-pstyle1">Dead heart muscle tissue</p>
+                  </div>
+                </div>
+              </div>
+
+              <div id="g-coranary-box" class="ai2html">
+                <div
+                  id="g-coranary-Artboard_1"
+                  class="g-artboard"
+                  style="max-width: 1674px; max-height: 2520px"
+                  data-aspect-ratio="0.664"
+                  data-min-width="0"
+                >
+                  <div style="padding: 0 0 150.5376% 0"></div>
+                  <img
+                    id="g-coranary-Artboard_1-img"
+                    class="g-coranary-Artboard_1-img g-aiImg"
+                    alt=""
+                    src="images/coranary-Artboard_1.jpg"
+                  />
+                  <div
+                    id="g-ai0-1"
+                    class="g-Layer_1 g-aiAbs"
+                    style="top: 9.5238%; right: 8.8902%; width: 20.4898%"
+                  >
+                    <p class="g-pstyle0">coronary artery</p>
+                  </div>
+                  <div
+                    id="g-ai0-2"
+                    class="g-Layer_1 g-aiAbs g-aiPointText"
+                    style="
+                      top: 29.5773%;
+                      margin-top: -36.3px;
+                      right: 8.8822%;
+                      width: 198px;
+                    "
+                  >
+                    <p class="g-pstyle1">Plaques</p>
+                  </div>
+                  <div
+                    id="g-ai0-3"
+                    class="g-Layer_1 g-aiAbs"
+                    style="top: 64.7619%; left: 6.9635%; width: 15.5317%"
+                  >
+                    <p>Narrowed</p>
+                    <p>artery</p>
+                  </div>
+                  <div
+                    id="g-ai0-4"
+                    class="g-Layer_1 g-aiAbs"
+                    style="top: 75.754%; left: 6.9635%; width: 9.8566%"
+                  >
+                    <p>Blood clot</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="heart-attack-text">
+            <p>
+              When the <strong>coronary arteries</strong> (heart arteries) that
+              supply blood to the heart muscle become narrowed or blocked by
+              fatty deposits called plaques, blood flow and oxygen to the heart
+              are reduced. This can cause chest pain, known as
+              <strong>angina</strong>.
+            </p>
+
+            <p>
+              If a coronary artery becomes completely blocked—often by a
+              <strong>blood clot</strong> forming on a ruptured plaque—the part
+              of the heart muscle supplied by that artery is starved of oxygen
+              and nutrients. Within about 30 minutes, heart muscle cells begin
+              to die, and most of the damage occurs within 6 to 12 hours.
+            </p>
+
+            <p>
+              This death of heart muscle tissue is called a
+              <strong>heart attack</strong> (<strong
+                >myocardial infarction</strong
+              >)— a medical emergency that requires immediate treatment.
+              Ischaemic heart disease (<strong>coronary artery disease</strong
+              >), which includes heart attacks, is the leading cause of death
+              worldwide, linked to risk factors such as high blood pressure,
+              diabetes, smoking, high cholesterol, obesity, and lack of physical
+              activity. In 2020, more than 15,000 Sri Lankans died from
+              ischaemic heart disease.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="symptoms-page">
+      <div class="symptoms-container">
+        <div class="symptoms-content-stack">
+          <h1 class="symptoms-title">Common heart attack symptoms</h1>
+
+          <div class="symptom-block pain-area-block">
+            <div class="symptom-text">
+              Pain or discomfort spreading to the
+              <strong>shoulders, arms</strong> (especially the left arm),
+              <strong>back, neck, jaw, or upper abdomen.</strong>
+            </div>
+            <div class="human-image-container">
+              <img
+                src="human.png"
+                alt="A human silhouette with highlighted areas showing where heart attack pain is most likely felt."
+              />
+            </div>
+            <div class="pain-area-label">
+              The areas where pain is most likely felt
+            </div>
+          </div>
+
+          <div class="symptom-block fatigue-block">
+            <div class="symptom-text">
+              <strong
+                >Fatigue or unusual tiredness, especially in women.</strong
+              >
+            </div>
+          </div>
+
+          <div class="symptom-block gastritis-warning">
+            <div class="warning-text">
+              Many heart attacks are
+              <strong>mistaken for gastritis</strong> because early symptoms can
+              feel similar — a delay that can be deadly.
+            </div>
+          </div>
+
+          <div class="symptom-block list-illustration-block">
+            <div class="symptoms-list">
+              <p><strong>Other potential symptoms include:</strong></p>
+              <ol>
+                <li>Lightheadedness, dizziness, or fainting</li>
+                <li>Shortness of breath — with or without chest pain</li>
+                <li>Nausea or vomiting</li>
+                <li>Cold sweating</li>
+                <li>
+                  Chest pain, pressure, tightness, or discomfort — often lasting
+                  more than a few minutes, or coming and going
+                </li>
+              </ol>
+            </div>
+
+            <div class="illustration-container">
+              <img
+                src="symptomsMob.jpg"
+                alt="An illustration of a man clutching his chest in pain."
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="comparison-sequence">
+      <div class="comparison-pin-container">
+        <div class="comparison-image-area">
+          <img
+            id="comparison-img"
+            src=""
+            alt="Visualizing the increase in heart disease deaths from 2010 to 2020."
+          />
+        </div>
+
+        <div class="comparison-text-area">
+          <div id="comparison-data-text"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="risk-factors">
+      <div class="content wrap">
+        <h1>Major cardiovascular disease (CVD) risk factors</h1>
+
+        <h2>Non-modifiable Risk Factors (cannot be changed)</h2>
+        <div class="factor">
+          <img src="images/riskFactors/1.png" alt="Age icon" />
+          <p>
+            <span>Age:</span> The risk of CVD rises with age as arteries
+            naturally become stiffer and plaque can build up over time.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/2.png" alt="Sex icon" />
+          <p>
+            <span>Sex:</span> Men generally face a higher risk of heart attack
+            earlier in life, though the risk for women increases after
+            menopause.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/3.png" alt="Family history icon" />
+          <p>
+            <span>Family history (Genetics):</span> Having a parent or sibling
+            with CVD increases one’s own risk, particularly at younger ages.
+          </p>
+        </div>
+
+        <h2>Modifiable Risk Factors (can be changed)</h2>
+        <div class="factor">
+          <img src="images/riskFactors/4.png" alt="High blood pressure icon" />
+          <p>
+            <span>High blood pressure:</span> Increases strain on the heart and
+            arteries, raising the risk of heart attack and stroke.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/5.png" alt="High cholesterol icon" />
+          <p>
+            <span>High cholesterol:</span> Promotes plaque buildup in arteries,
+            reducing blood flow to the heart and brain.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/6.png" alt="Diabetes icon" />
+          <p>
+            <span>Diabetes:</span> High blood sugar damages blood vessels and
+            accelerates plaque buildup.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/7.png" alt="Smoking icon" />
+          <p>
+            <span>Smoking:</span> Damages the lining of arteries, increases
+            blood pressure, and reduces oxygen in the blood.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/8.png" alt="Physical inactivity icon" />
+          <p>
+            <span>Physical inactivity:</span> Lack of regular exercise
+            contributes to obesity, high blood pressure, and poor cholesterol
+            balance.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/9.png" alt="Unhealthy diet icon" />
+          <p>
+            <span>Unhealthy diet:</span> Diets high in salt, saturated fats, and
+            sugar raise cholesterol and blood pressure.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/10.png" alt="Obesity icon" />
+          <p>
+            <span>Obesity:</span> Increases blood pressure, cholesterol, and
+            risk of diabetes — all of which heighten CVD risk.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/11.png" alt="Alcohol icon" />
+          <p>
+            <span>Excessive alcohol consumption:</span> Raises blood pressure
+            and triglyceride levels, damaging the heart muscle.
+          </p>
+        </div>
+
+        <h2>Emerging Risk Factors</h2>
+        <div class="factor">
+          <img src="images/riskFactors/12.png" alt="Stress icon" />
+          <p>
+            <span>Stress:</span> Chronic stress can lead to inflammation, high
+            blood pressure, and unhealthy coping behaviours.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/13.png" alt="Sleep icon" />
+          <p>
+            <span>Poor sleep:</span> Inadequate or poor-quality sleep can raise
+            blood pressure and contribute to obesity and diabetes.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/14.png" alt="Air pollution icon" />
+          <p>
+            <span>Air pollution:</span> Long-term exposure to air pollutants can
+            damage blood vessels and increase the risk of heart disease.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img src="images/riskFactors/15.png" alt="Inflammation icon" />
+          <p>
+            <span>Chronic inflammation:</span> Persistent inflammation in the
+            body contributes to the development of atherosclerosis.
+          </p>
+        </div>
+
+        <div class="factor">
+          <img
+            src="images/riskFactors/16.png"
+            alt="Socioeconomic factors icon"
+          />
+          <p>
+            <span>Socioeconomic factors:</span> Low income, limited access to
+            healthcare, and social stress increase vulnerability to CVD.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <p class="divider"></p>
+
+    <section class="actions-section">
+      <div class="content wrap">
+        <h2>Immediate Actions in Case of a Heart Attack</h2>
+
+        <div class="action">
+          <img src="images/ImmActions/1.png" alt="Call Ambulance Service" />
+          <div class="text">
+            <p class="title">Call Ambulance Service (1990)</p>
+            <p class="desc">
+              Admission to the nearest suitable hospital right away.
+            </p>
+          </div>
+        </div>
+
+        <div class="action">
+          <img src="images/ImmActions/2.png" alt="Give Aspirin" />
+          <div class="text">
+            <p class="title">Give Aspirin (if safe)</p>
+            <p class="desc">
+              If the patient is conscious and not allergic, let them chew one
+              aspirin to help reduce blood clotting.
+            </p>
+          </div>
+        </div>
+
+        <div class="action">
+          <img src="images/ImmActions/3.png" alt="Keep Patient Still" />
+          <div class="text">
+            <p class="title">Keep Patient Still</p>
+            <p class="desc">
+              Sit them down, keep them calm. Loosen any tight clothing. Do not
+              let them walk.
+            </p>
+          </div>
+        </div>
+
+        <div class="action">
+          <img src="images/ImmActions/4.png" alt="Check Breathing & Pulse" />
+          <div class="text">
+            <p class="title">Check Breathing & Pulse</p>
+            <p class="desc">If they stop breathing, start CPR immediately.</p>
+          </div>
+        </div>
+
+        <div class="action">
+          <img src="images/ImmActions/5.png" alt="Reassure the Patient" />
+          <div class="text">
+            <p class="title">Reassure the Patient</p>
+            <p class="desc">
+              Stay calm and speak gently — don’t frighten them.
+            </p>
+          </div>
+        </div>
+
+        <p class="quote">
+          “According to cardiologists, about 40% of patients die at the very
+          onset of a heart attack. Only around 60% survive long enough to reach
+          a hospital for admission and treatment.”
+        </p>
+
+        <div class="bottom-image">
+          <div id="g-pie-box" class="ai2html">
+            <div
+              id="g-pie-Artboard_1"
+              class="g-artboard"
+              style="max-width: 433px"
+            >
+              <div style="padding: 0 0 100% 0"></div>
+              <img
+                id="g-pie-Artboard_1-img"
+                class="g-aiImg"
+                src="images/ImmActions/pie-Artboard_1.png"
+                alt="Heart attack survival chart"
+              />
+              <div
+                class="g-aiAbs"
+                id="g-ai0-1"
+                style="top: 14%; left: 6%; width: 40%"
+              >
+                <p>Survive to hospital admission:</p>
+                <p class="g-pstyle0">60%</p>
+              </div>
+              <div
+                class="g-aiAbs"
+                id="g-ai0-2"
+                style="top: 14%; right: 6%; width: 40%"
+              >
+                <p class="g-pstyle4">Sudden cardiac death:</p>
+                <p class="g-pstyle5">40%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sources">
+      <div class="wrap">
+        <p>
+          <i
+            >Sources: World Health Organization(WHO), Mayo Clinic, Sri Lanka
+            Heart Association, Department of Census and Statistics</i
+          >
+        </p>
+      </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+      // =======================================================
+      // Original JS (kept and slightly wrapped)
+      // =======================================================
+      const frameCount = 7; // match actual frames you have
+      const currentFrame = (index) =>
+        `frames/frame_${index.toString().padStart(4, "0")}.jpg`;
+
+      const images = [];
+      const canvas = document.getElementById("seq-canvas");
+      const context =
+        canvas && canvas.getContext ? canvas.getContext("2d") : null;
+      const weightText = document.getElementById("weight-text");
+
+      if (canvas) {
+        canvas.width = 1702;
+        canvas.height = 1550;
+      }
+
+      const textArray = [
+        "Sugath Nuwan, 34, is a father of three and a retired Navy sailor. He is a novelist who has won the hearts of readers by writing more than 1000 novels on Facebook for over 10 years. He died at a young age on August 30 due to a heart attack while on his way to the hospital due to chest pain.",
+        "Not only him, We now hear about young deaths from similar heart attacks every day.",
+        "Among them are famous musicians, politicians, and athletes, and their loss leaves a huge void that society cannot fill.",
+        "More and more individuals between the ages of 20 and 40 are suffering heart attacks. This number is increasing by the day.",
+        "Out of ten patients presenting for treatment, at least four or five are under the age of 40.",
+        "Data indicates that deaths from ischaemic heart disease in young people have more than doubled over the past decade.",
+        "Reported deaths from ischaemic heart disease in 25-44 year olds rose sharply from 228 in 2010 to 620 in 2020.",
+      ];
+
+      function preloadImages() {
+        for (let i = 0; i < frameCount; i++) {
+          const img = new Image();
+          img.src = currentFrame(i);
+          images.push(img);
+        }
+      }
+
+      // Handle high-DPI sharpness
+      function resizeCanvas() {
+        if (!canvas || !context) return;
+        const { width, height } = canvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        context.scale(dpr, dpr);
+      }
+
+      // call it once now and on resize
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      function render(index) {
+        if (!context) return;
+        const img = images[index];
+        if (!img || !img.complete) return;
+
+        const canvasWidth = canvas.clientWidth;
+        const canvasHeight = canvas.clientHeight;
+        const imgAspect = img.width / img.height;
+        const canvasAspect = canvasWidth / canvasHeight;
+
+        let drawWidth, drawHeight;
+        if (imgAspect > canvasAspect) {
+          drawWidth = canvasWidth;
+          drawHeight = canvasWidth / imgAspect;
+        } else {
+          drawHeight = canvasHeight;
+          drawWidth = canvasHeight * imgAspect;
+        }
+
+        const x = (canvasWidth - drawWidth) / 2;
+        const y = (canvasHeight - drawHeight) / 2;
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(img, x, y, drawWidth, drawHeight);
+      }
+
+      // comparison data
+      const comparisonData = [
+        { year: "2010", deaths: "228 deaths." },
+        { year: "2011", deaths: "260 deaths." },
+        { year: "2012", deaths: "305 deaths." },
+        { year: "2013", deaths: "350 deaths." },
+        { year: "2014", deaths: "400 deaths." },
+        { year: "2016", deaths: "480 deaths." },
+        { year: "2018", deaths: "550 deaths." },
+        { year: "2020", deaths: "620 deaths." },
+      ];
+      const comparisonFrameCount = 8;
+      const comparisonImg = document.getElementById("comparison-img");
+      const comparisonText = document.getElementById("comparison-data-text");
+
+      const comparisonImages = [];
+
+      function preloadComparisonImages() {
+        for (let i = 0; i < comparisonFrameCount; i++) {
+          const img = new Image();
+          img.src = `frames/figure_${i}.jpg`;
+          img.onload = (function (n, image) {
+            return function () {
+              // show first image once loaded
+              if (n === 0 && comparisonImg) {
+                comparisonImg.src = image.src;
+                comparisonImg.style.opacity = 1;
+              }
+            };
+          })(i, img);
+          comparisonImages.push(img);
+        }
+      }
+
+      window.addEventListener("load", function () {
+        preloadImages();
+        preloadComparisonImages();
+
+        if (images[0]) {
+          images[0].onload = function () {
+            render(0);
+          };
+        }
+
+        // STATEMENTS (GSAP)
+        const statements = [
+          "Cardiovascular disease (CVD) is the world's number one killer.",
+          "Each year, the world loses as many people to cardiovascular disease (CVD) as the entire population of Sri Lanka—about 20.5 million lives.",
+          "In Sri Lanka, cardiovascular disease claims over 90 lives every day. This adds up to more than 33,000 deaths in a year.",
+          "Heart attacks and strokes cause 85% of all CVD deaths.",
+        ];
+
+        // STATEMENTS (refined with controlled scroll duration)
+        const statTexts = gsap.utils.toArray(".stat-text");
+        statTexts.forEach((p, i) => (p.textContent = statements[i] || ""));
+
+        // control total scroll distance
+        const statScrollDuration = statTexts.length * 800; // longer = smoother scroll
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".stat-sequence",
+            start: "top top",
+            end: "+=" + statScrollDuration,
+            scrub: 1.5, // adds gentle motion damping
+            pin: true,
+            anticipatePin: 1,
+            ease: "power1.inOut", // smoother easing between frames
+          },
+        });
+
+        // each statement fades in softly, stays visible, then fades out slowly
+        statTexts.forEach((text, i) => {
+          tl.to(text, { opacity: 1, duration: 1, ease: "power2.out" })
+            .to(text, { opacity: 1, duration: 1.2, ease: "none" }) // hold time
+            .to(text, { opacity: 0, duration: 1.2, ease: "power2.in" });
+        });
+
+        // CANVAS SEQUENCE
+        const scrollObj = { frame: 0 };
+        gsap.to(scrollObj, {
+          frame: frameCount - 1,
+          snap: { snapTo: 1, duration: 0.1 },
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".pin-sequence",
+            start: "top top",
+            end: "+=" + frameCount * 500,
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+          },
+          onUpdate: function () {
+            const current = Math.round(scrollObj.frame);
+            render(current);
+
+            if (textArray[current]) {
+              const fullText = textArray[current];
+              // try to extract year prefix, otherwise show text
+              const match = fullText.match(/^(\d{4})\s*(.*)$/);
+              if (match) {
+                const year = match[1];
+                const count = match[2];
+                if (weightText) {
+                  weightText.innerHTML =
+                    '<span class="data-year">' +
+                    year +
+                    "</span>" +
+                    '<span class="data-count">' +
+                    count +
+                    "</span>";
+                }
+              } else {
+                if (weightText) weightText.innerHTML = fullText;
+              }
+            }
+          },
+        });
+
+        // COMPARISON SEQUENCE
+        // ✅ Initialization (keep these)
+        // ✅ Keep initialization
+        // ✅ Initialization (keep your originals)
+        // ✅ Initialization (keep these)
+        // COMPARISON SEQUENCE
+        // initialization (keep your originals)
+        // COMPARISON SEQUENCE
+        // initialization (keep your originals)
+        // COMPARISON SEQUENCE
+        // initialization (keep your originals)
+        const scrollCompareObj = { frame: 0 };
+        const comparisonFrames = comparisonFrameCount - 1;
+
+        // ✅ Detect mobile/tablet
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+        // 🛠️ --- MANUAL CONTROL PANEL ---
+        // Set to 0 to prevent initial fade delay
+        const mobileDownDelay = 0;
+        const mobileUpDelay = 0;
+
+        // **MODIFICATION 1: INCREASE PIN DURATION/BUFFER**
+        // Multiplier controls the hold time at the end (1.0 = 1 viewport height hold)
+        const baseDuration = (comparisonFrameCount - 1) * 400;
+        const endBufferMultiplier = isMobile ? 1.0 : 0.4;
+
+        // Correct calculation of the end buffer size:
+        const endBuffer = window.innerHeight * endBufferMultiplier;
+
+        // CORRECTED LINE: Uses endBuffer to calculate total scroll duration
+        const scrollDuration = baseDuration + endBuffer;
+
+        // ✅ ScrollTrigger for COMPARISON section
+        gsap.to(scrollCompareObj, {
+          frame: comparisonFrames,
+          snap: { snapTo: 1 },
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".comparison-sequence",
+            start: "top top",
+            end: "+=" + scrollDuration,
+            scrub: true,
+            pin: true,
+            anticipatePin: 1.2,
+
+            // MODIFICATION 2: REMOVE OPACITY FADE onLeave
+            onEnter: () =>
+              gsap.to([comparisonImg, comparisonText], {
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+                delay: mobileUpDelay,
+              }),
+
+            onLeave: () => {
+              // The text and image will simply be left at opacity 1
+              // and scroll up with the pin-spacing gap created by CSS padding.
+            },
+
+            onEnterBack: () =>
+              gsap.to([comparisonImg, comparisonText], {
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+                delay: mobileUpDelay,
+              }),
+
+            onLeaveBack: () =>
+              gsap.to([comparisonImg, comparisonText], {
+                opacity: 0,
+                duration: 0.6,
+                ease: "power1.in",
+              }),
+          },
+
+          onUpdate: () => {
+            const current = Math.round(scrollCompareObj.frame);
+            const img = comparisonImages[current];
+            if (img && img.complete) comparisonImg.src = img.src;
+            const data = comparisonData[current];
+            if (data)
+              comparisonText.innerHTML = `
+        <span class="comparison-year">${data.year}</span>
+        <span class="comparison-deaths">${data.deaths}</span>`;
+          },
+        });
+      });
+
+      // 🧩 Recalculate ScrollTrigger positions after images and pins settle
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          ScrollTrigger.refresh(true);
+        }, 500);
+      });
+    </script>
+  </body>
+</html>
